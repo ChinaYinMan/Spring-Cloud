@@ -1,0 +1,69 @@
+spring:
+  cloud:
+    #SpringCloud网关
+    gateway:
+#============================================开启网关路由服务化==================================================
+      #是否与服务注册于发现组件进行结合，通过 serviceId 转发到具体的服务实例。
+      #默认为 false，设为 true 便开启通过服务中心的自动根据 serviceId 创建路由的功能。
+      discovery:
+        locator:
+          lowerCaseServiceId: true
+          enabled: true
+#============================================开启网关路由服务化==================================================
+
+#===============================================配置服务路由=====================================================
+      #路由
+      routes:
+      #自定义路由名称 唯一标识
+      #基础业务服务路由
+      - id: business_base_route
+        # uri以lb://开头（lb代表从注册中心获取服务），后面就是需要转发到的服务名称
+        uri: lb://business-base
+        predicates:
+        #请求路径匹配
+        - Path=/business/base/**
+        #过滤器
+        filters:
+        #修改请求路径的过滤器 截取1个路径  例: 拦截路径/businessbase/sso/test 截取后路径/sso/test
+        - StripPrefix=2
+        #熔断路由器
+        - name: Hystrix
+          args:
+            name: hystrixCommand
+            fallbackUri: forward:/hystrix/fallback
+        #- RetryFilter
+        #重试路由器 如果不配置重试路由器,会导致异常服务恢复正常后无法访问
+        - name: Retry
+          args:
+            retries: 3
+            statuses: BAD_GATEWAY
+            methods:
+            - GET
+            - POST
+            exceptions:
+            - java.io.IOException
+            - java.util.concurrent.TimeoutException
+
+
+
+      #权限认证中心服务路由
+      - id: cloud_oauth_route
+        # uri以lb://开头（lb代表从注册中心获取服务），后面就是需要转发到的服务名称
+        uri: lb://cloud-oauth
+        predicates:
+        #请求路径匹配
+        - Path=/oauth/**
+#===============================================配置服务路由=====================================================
+
+#===============================================熔断相关配置====================================================
+hystrix:
+  command:
+    default:  #default全局有效，service id指定应用有效
+      execution:
+        timeout:
+          #如果enabled设置为false，则请求超时交给ribbon控制,为true,则超时作为熔断根据
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 15000 #断路器超时时间，默认1000ms
+#===============================================熔断相关配置====================================================

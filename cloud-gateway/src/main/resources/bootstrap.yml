@@ -1,0 +1,79 @@
+server:
+  #访问端口
+  port: 8090
+  servlet:
+    #访问路径
+    path: /
+spring:
+  application:
+    name: cloud-gateway
+  #环境配置选择
+  profiles:
+    active: dev
+#==============================================配置中心部分=======================================================
+---
+spring:
+  # 配置中心
+  cloud:
+    config:
+      fail-fast: true
+      name: ${spring.application.name}
+      profile: ${spring.profiles.active}
+      discovery:
+        #开启通过服务来访问Config Server的功能
+        enabled: true
+        service-id: cloud-config
+#==============================================配置中心部分=======================================================
+
+#==============================================服务注册部分=======================================================
+eureka:
+  instance:
+    #使用IP进行服务注册
+    prefer-ip-address: true
+    #自定义注册名
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+
+    #===============切记！！！生产环境将此处注释,否则会打破服务注册的自我保护功能=======
+    #续约到期时间（默认90秒）
+    lease-expiration-duration-in-seconds: 2
+    #续约更新时间间隔（默认30秒） 发送心跳
+    lease-renewal-interval-in-seconds: 1
+    #===============切记！！！生产环境将此处注释,否则会打破服务注册的自我保护功能=======
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8092/eureka
+#==============================================服务注册部分=======================================================
+
+#====================================配置eureka服务注册信息,方便于服务管理========================================
+info:
+  app:
+    #应用名称
+    name: '@project.name@'
+    #应用详情
+    description: '@project.description@'
+  build:
+    #组织
+    groupId: '@project.groupId@'
+    artifact: '@project.artifactId@'
+    name: '@project.name@'
+    #版本号
+    version: '@project.version@'
+  #环境
+  env:
+    java:
+      vendor: ${java.specification.vendor}
+      vm-name: ${java.vm.name}
+      #Java版本
+      runtime-version: ${java.runtime.version}
+#====================================配置eureka服务注册信息,方便于服务管理========================================
+
+#==============================================gateway部分配置=====================================================
+#暴露端点 外界可通过相关接口访问到服务的相关信息
+#例 访问 http://localhost:网关端口/actuator/gateway/routes，可查看当前网关的路由信息。
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+#==============================================gateway部分配置=====================================================
+

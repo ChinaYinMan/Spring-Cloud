@@ -1,0 +1,35 @@
+server:
+  #访问端口
+  port: 8092
+  servlet:
+    #访问路径
+    path: /
+spring:
+  application:
+    name: cloud-register
+
+#==============================================注册中心部分=======================================================
+eureka:
+  instance:
+    #服务注册中心实例的主机名
+    hostname: localhost
+  client:
+    #是否检索服务
+    fetch-registry: false
+    #是否向服务注册中心注册自己
+    #register-with-eureka: false
+
+    #服务地址
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+  #===============切记！！！生产环境将此处注释,否则会打破服务注册的自我保护功能=======
+  server:
+    #自我保护机制关闭  方便本地测试
+    #过期实例应该启动并运行的时间间隔，单位为毫秒，默认为60 * 1000
+    eviction-interval-timer-in-ms: 500
+    #自我保护机制 false=关闭
+    enable-self-preservation: false
+  #===============切记！！！生产环境将此处注释,否则会打破服务注册的自我保护功能=======
+
+#==============================================注册中心部分=======================================================
