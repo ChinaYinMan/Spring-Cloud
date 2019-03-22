@@ -1,7 +1,7 @@
 package com.common.base.utils;
 
 
-import java.time.ZoneId;
+
 import java.util.Date;
 
 /**
@@ -11,7 +11,7 @@ public class DateUtil {
 
     public Date dateToLocalDate(Date date) {
         //时区
-        ZoneId zoneId = ZoneId.systemDefault();
+        //ZoneId zoneId = ZoneId.systemDefault();
         /*LocalDate localDate = LocalDate.from(date.toInstant());*/
         return null;
     }

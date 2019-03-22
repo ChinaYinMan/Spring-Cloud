@@ -2,6 +2,7 @@ package com.business.base.controller.sso;
 
 
 
+import com.common.base.result.Result;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,11 +23,8 @@ public class TestController {
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> test() throws Exception{
+    public Result test() throws Exception{
 
-        Map<String, Object> map = Maps.newHashMap();
-        map.put("name", "mantou666");
-
-        return map;
+        return Result.success();
     }
 }

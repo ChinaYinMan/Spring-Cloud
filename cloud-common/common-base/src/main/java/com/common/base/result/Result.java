@@ -1,10 +1,8 @@
 package com.common.base.result;
 
 
-import com.common.base.constant.Constant;
-import lombok.Builder;
+import com.common.base.constant.ExceptionConstant;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 /**
  * 注解@Builder建造者模式创建对象
@@ -13,7 +11,6 @@ import lombok.RequiredArgsConstructor;
  * @author mantou
  */
 @Data
-@Builder
 public class Result {
 
     /**
@@ -35,7 +32,7 @@ public class Result {
      * @return
      */
     public static Result success() {
-        return new Result(Constant.RET_CODE_SUCCESS, Constant.RET_INFO_SUCCESS);
+        return new Result(ExceptionConstant.RETURN_CODE_SUCCESS, ExceptionConstant.RETURN_INFO_SUCCESS);
     }
 
     /**
@@ -43,7 +40,7 @@ public class Result {
      * @return
      */
     public static Result userNotExist() {
-        return new Result(Constant.RET_CODE_USER_NOT_EXIST, Constant.RET_INFO_USER_NOT_EXIST);
+        return new Result(ExceptionConstant.RETURN_CODE_USER_NOT_EXIST, ExceptionConstant.RETURN_INFO_USER_NOT_EXIST);
     }
 
     /**
@@ -52,7 +49,7 @@ public class Result {
      * @return
      */
     public static Result success(Object data) {
-        return new Result(Constant.RET_CODE_SUCCESS, Constant.RET_INFO_SUCCESS, data);
+        return new Result(ExceptionConstant.RETURN_CODE_SUCCESS, ExceptionConstant.RETURN_INFO_SUCCESS, data);
     }
 
     /**
@@ -60,16 +57,16 @@ public class Result {
      * @return
      */
     public static Result error() {
-        return new Result(Constant.RET_CODE_ERROR, Constant.RET_INFO_ERROR);
+        return new Result(ExceptionConstant.RETURN_CODE_ERROR, ExceptionConstant.RETURN_INFO_ERROR);
     }
 
     /**
-     * 请求失败构造方法 自定义返回基础信息
+     * 业务异常构造方法 自定义返回基础信息
      * @param retInfo
      * @return
      */
     public static Result error(String retInfo) {
-        return new Result(Constant.RET_CODE_ERROR, retInfo);
+        return new Result(ExceptionConstant.RETURN_CODE_BUSINESS_EXCEPTION, retInfo);
     }
 
     /**
@@ -77,7 +74,7 @@ public class Result {
      * @return
      */
     public static Result paramNull() {
-        return new Result(Constant.RET_CODE_PARAM_NULL, Constant.RET_INFO_PARAM_NULL);
+        return new Result(ExceptionConstant.RETURN_CODE_PARAM_NULL, ExceptionConstant.RETURN_INFO_PARAM_NULL);
     }
 
     /**
@@ -85,7 +82,7 @@ public class Result {
      * @return
      */
     public static Result idNull() {
-        return new Result(Constant.RET_CODE_ID_NULL, Constant.RET_INFO_ID_NULL);
+        return new Result(ExceptionConstant.RETURN_CODE_ID_NULL, ExceptionConstant.RETURN_INFO_ID_NULL);
     }
 
     /**
@@ -93,7 +90,7 @@ public class Result {
      * @return
      */
     public static Result objNull() {
-        return new Result(Constant.RET_CODE_OBJ_NULL, Constant.RET_INFO_OBJ_NULL);
+        return new Result(ExceptionConstant.RETURN_CODE_OBJ_NULL, ExceptionConstant.RETURN_INFO_OBJ_NULL);
     }
 
     /**
@@ -133,7 +130,7 @@ public class Result {
      * @return
      */
     public static Result serviceException() {
-        return new Result(Constant.RET_CODE_SERVICE_EXCEPTION, Constant.RET_INFO_SERVICE_EXCEPTION);
+        return new Result(ExceptionConstant.RETURN_CODE_SERVICE_EXCEPTION, ExceptionConstant.RETURN_INFO_SERVICE_EXCEPTION);
     }
 
 
