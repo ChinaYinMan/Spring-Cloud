@@ -60,7 +60,7 @@
         <druid-spring-boot-starter.version>1.1.10</druid-spring-boot-starter.version>
         <mysql-connector-java.version>5.1.41</mysql-connector-java.version>
         <spring-boot.version>2.0.4.RELEASE</spring-boot.version>
-        <spring-security-oauth2.version>2.3.4.RELEASE</spring-security-oauth2.version>
+        <spring-security-oauth2.version>2.3.5.RELEASE</spring-security-oauth2.version>
         <zuul-core.version>2.1.1</zuul-core.version>
     </properties>
 
