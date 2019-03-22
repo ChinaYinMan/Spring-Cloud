@@ -1,7 +1,7 @@
 package com.common.base.constant;
 
 /**
- * @description 常量
+ * @description 异常定义常量
  * @author mantou
  */
 public class ExceptionConstant {
